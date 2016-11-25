@@ -19,9 +19,12 @@ public class FolParser extends Parser {
 		VARIABLE=1, WHITESPACE=2, OPENING_BRACKET=3, CLOSING_BRACKET=4, AND=5, 
 		OR=6, NOT=7, COMMA=8, IMPLIES=9, CONSTANT=10;
 	public static final int
-		RULE_sentence = 0, RULE_complex_sentence = 1, RULE_literal = 2, RULE_list_predicates = 3;
+		RULE_sentence = 0, RULE_complex_sentence = 1, RULE_implication_sentence = 2, 
+		RULE_not_sentence = 3, RULE_and_sentence = 4, RULE_or_sentence = 5, RULE_literal = 6, 
+		RULE_list_predicates = 7;
 	public static final String[] ruleNames = {
-		"sentence", "complex_sentence", "literal", "list_predicates"
+		"sentence", "complex_sentence", "implication_sentence", "not_sentence", 
+		"and_sentence", "or_sentence", "literal", "list_predicates"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -92,12 +95,9 @@ public class FolParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_sentence; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).enterSentence(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).exitSentence(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitSentence(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -105,12 +105,12 @@ public class FolParser extends Parser {
 		SentenceContext _localctx = new SentenceContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_sentence);
 		try {
-			setState(10);
+			setState(18);
 			switch (_input.LA(1)) {
 			case OPENING_BRACKET:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(8);
+				setState(16);
 				complex_sentence();
 				}
 				break;
@@ -118,7 +118,7 @@ public class FolParser extends Parser {
 			case CONSTANT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(9);
+				setState(17);
 				literal();
 				}
 				break;
@@ -138,6 +138,78 @@ public class FolParser extends Parser {
 	}
 
 	public static class Complex_sentenceContext extends ParserRuleContext {
+		public Implication_sentenceContext implication_sentence() {
+			return getRuleContext(Implication_sentenceContext.class,0);
+		}
+		public Not_sentenceContext not_sentence() {
+			return getRuleContext(Not_sentenceContext.class,0);
+		}
+		public And_sentenceContext and_sentence() {
+			return getRuleContext(And_sentenceContext.class,0);
+		}
+		public Or_sentenceContext or_sentence() {
+			return getRuleContext(Or_sentenceContext.class,0);
+		}
+		public Complex_sentenceContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_complex_sentence; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitComplex_sentence(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Complex_sentenceContext complex_sentence() throws RecognitionException {
+		Complex_sentenceContext _localctx = new Complex_sentenceContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_complex_sentence);
+		try {
+			setState(24);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(20);
+				implication_sentence();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(21);
+				not_sentence();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(22);
+				and_sentence();
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(23);
+				or_sentence();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Implication_sentenceContext extends ParserRuleContext {
 		public TerminalNode OPENING_BRACKET() { return getToken(FolParser.OPENING_BRACKET, 0); }
 		public List<SentenceContext> sentence() {
 			return getRuleContexts(SentenceContext.class);
@@ -147,88 +219,178 @@ public class FolParser extends Parser {
 		}
 		public TerminalNode IMPLIES() { return getToken(FolParser.IMPLIES, 0); }
 		public TerminalNode CLOSING_BRACKET() { return getToken(FolParser.CLOSING_BRACKET, 0); }
-		public TerminalNode NOT() { return getToken(FolParser.NOT, 0); }
-		public TerminalNode AND() { return getToken(FolParser.AND, 0); }
-		public TerminalNode OR() { return getToken(FolParser.OR, 0); }
-		public Complex_sentenceContext(ParserRuleContext parent, int invokingState) {
+		public Implication_sentenceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_complex_sentence; }
+		@Override public int getRuleIndex() { return RULE_implication_sentence; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).enterComplex_sentence(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).exitComplex_sentence(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitImplication_sentence(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Complex_sentenceContext complex_sentence() throws RecognitionException {
-		Complex_sentenceContext _localctx = new Complex_sentenceContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_complex_sentence);
+	public final Implication_sentenceContext implication_sentence() throws RecognitionException {
+		Implication_sentenceContext _localctx = new Implication_sentenceContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_implication_sentence);
 		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(26);
+			match(OPENING_BRACKET);
+			setState(27);
+			sentence();
+			setState(28);
+			match(IMPLIES);
+			setState(29);
+			sentence();
+			setState(30);
+			match(CLOSING_BRACKET);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Not_sentenceContext extends ParserRuleContext {
+		public TerminalNode OPENING_BRACKET() { return getToken(FolParser.OPENING_BRACKET, 0); }
+		public TerminalNode NOT() { return getToken(FolParser.NOT, 0); }
+		public SentenceContext sentence() {
+			return getRuleContext(SentenceContext.class,0);
+		}
+		public TerminalNode CLOSING_BRACKET() { return getToken(FolParser.CLOSING_BRACKET, 0); }
+		public Not_sentenceContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_not_sentence; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitNot_sentence(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Not_sentenceContext not_sentence() throws RecognitionException {
+		Not_sentenceContext _localctx = new Not_sentenceContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_not_sentence);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(32);
+			match(OPENING_BRACKET);
+			setState(33);
+			match(NOT);
+			setState(34);
+			sentence();
 			setState(35);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(12);
-				match(OPENING_BRACKET);
-				setState(13);
-				sentence();
-				setState(14);
-				match(IMPLIES);
-				setState(15);
-				sentence();
-				setState(16);
-				match(CLOSING_BRACKET);
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(18);
-				match(OPENING_BRACKET);
-				setState(19);
-				match(NOT);
-				setState(20);
-				sentence();
-				setState(21);
-				match(CLOSING_BRACKET);
-				}
-				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(23);
-				match(OPENING_BRACKET);
-				setState(24);
-				sentence();
-				setState(25);
-				match(AND);
-				setState(26);
-				sentence();
-				setState(27);
-				match(CLOSING_BRACKET);
-				}
-				break;
-			case 4:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(29);
-				match(OPENING_BRACKET);
-				setState(30);
-				sentence();
-				setState(31);
-				match(OR);
-				setState(32);
-				sentence();
-				setState(33);
-				match(CLOSING_BRACKET);
-				}
-				break;
+			match(CLOSING_BRACKET);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class And_sentenceContext extends ParserRuleContext {
+		public TerminalNode OPENING_BRACKET() { return getToken(FolParser.OPENING_BRACKET, 0); }
+		public List<SentenceContext> sentence() {
+			return getRuleContexts(SentenceContext.class);
+		}
+		public SentenceContext sentence(int i) {
+			return getRuleContext(SentenceContext.class,i);
+		}
+		public TerminalNode AND() { return getToken(FolParser.AND, 0); }
+		public TerminalNode CLOSING_BRACKET() { return getToken(FolParser.CLOSING_BRACKET, 0); }
+		public And_sentenceContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_and_sentence; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitAnd_sentence(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final And_sentenceContext and_sentence() throws RecognitionException {
+		And_sentenceContext _localctx = new And_sentenceContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_and_sentence);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(37);
+			match(OPENING_BRACKET);
+			setState(38);
+			sentence();
+			setState(39);
+			match(AND);
+			setState(40);
+			sentence();
+			setState(41);
+			match(CLOSING_BRACKET);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Or_sentenceContext extends ParserRuleContext {
+		public TerminalNode OPENING_BRACKET() { return getToken(FolParser.OPENING_BRACKET, 0); }
+		public List<SentenceContext> sentence() {
+			return getRuleContexts(SentenceContext.class);
+		}
+		public SentenceContext sentence(int i) {
+			return getRuleContext(SentenceContext.class,i);
+		}
+		public TerminalNode OR() { return getToken(FolParser.OR, 0); }
+		public TerminalNode CLOSING_BRACKET() { return getToken(FolParser.CLOSING_BRACKET, 0); }
+		public Or_sentenceContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_or_sentence; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitOr_sentence(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Or_sentenceContext or_sentence() throws RecognitionException {
+		Or_sentenceContext _localctx = new Or_sentenceContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_or_sentence);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(43);
+			match(OPENING_BRACKET);
+			setState(44);
+			sentence();
+			setState(45);
+			match(OR);
+			setState(46);
+			sentence();
+			setState(47);
+			match(CLOSING_BRACKET);
 			}
 		}
 		catch (RecognitionException re) {
@@ -255,46 +417,43 @@ public class FolParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_literal; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).enterLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).exitLiteral(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitLiteral(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_literal);
+		enterRule(_localctx, 12, RULE_literal);
 		try {
-			setState(48);
+			setState(60);
 			switch (_input.LA(1)) {
 			case CONSTANT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(37);
+				setState(49);
 				match(CONSTANT);
-				setState(38);
+				setState(50);
 				match(OPENING_BRACKET);
-				setState(39);
+				setState(51);
 				list_predicates();
-				setState(40);
+				setState(52);
 				match(CLOSING_BRACKET);
 				}
 				break;
 			case NOT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(42);
+				setState(54);
 				match(NOT);
-				setState(43);
+				setState(55);
 				match(CONSTANT);
-				setState(44);
+				setState(56);
 				match(OPENING_BRACKET);
-				setState(45);
+				setState(57);
 				list_predicates();
-				setState(46);
+				setState(58);
 				match(CLOSING_BRACKET);
 				}
 				break;
@@ -325,55 +484,52 @@ public class FolParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_list_predicates; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).enterList_predicates(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof FolListener ) ((FolListener)listener).exitList_predicates(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FolVisitor ) return ((FolVisitor<? extends T>)visitor).visitList_predicates(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
 	public final List_predicatesContext list_predicates() throws RecognitionException {
 		List_predicatesContext _localctx = new List_predicatesContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_list_predicates);
+		enterRule(_localctx, 14, RULE_list_predicates);
 		try {
-			setState(58);
+			setState(70);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(50);
+				setState(62);
 				match(VARIABLE);
-				setState(51);
+				setState(63);
 				match(COMMA);
-				setState(52);
+				setState(64);
 				list_predicates();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(53);
+				setState(65);
 				match(VARIABLE);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(54);
+				setState(66);
 				match(CONSTANT);
-				setState(55);
+				setState(67);
 				match(COMMA);
-				setState(56);
+				setState(68);
 				list_predicates();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(57);
+				setState(69);
 				match(CONSTANT);
 				}
 				break;
@@ -391,22 +547,24 @@ public class FolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\f?\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\3\2\3\2\5\2\r\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3&\n\3\3"+
-		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\63\n\4\3\5\3\5\3\5\3\5"+
-		"\3\5\3\5\3\5\3\5\5\5=\n\5\3\5\2\2\6\2\4\6\b\2\2B\2\f\3\2\2\2\4%\3\2\2"+
-		"\2\6\62\3\2\2\2\b<\3\2\2\2\n\r\5\4\3\2\13\r\5\6\4\2\f\n\3\2\2\2\f\13\3"+
-		"\2\2\2\r\3\3\2\2\2\16\17\7\5\2\2\17\20\5\2\2\2\20\21\7\13\2\2\21\22\5"+
-		"\2\2\2\22\23\7\6\2\2\23&\3\2\2\2\24\25\7\5\2\2\25\26\7\t\2\2\26\27\5\2"+
-		"\2\2\27\30\7\6\2\2\30&\3\2\2\2\31\32\7\5\2\2\32\33\5\2\2\2\33\34\7\7\2"+
-		"\2\34\35\5\2\2\2\35\36\7\6\2\2\36&\3\2\2\2\37 \7\5\2\2 !\5\2\2\2!\"\7"+
-		"\b\2\2\"#\5\2\2\2#$\7\6\2\2$&\3\2\2\2%\16\3\2\2\2%\24\3\2\2\2%\31\3\2"+
-		"\2\2%\37\3\2\2\2&\5\3\2\2\2\'(\7\f\2\2()\7\5\2\2)*\5\b\5\2*+\7\6\2\2+"+
-		"\63\3\2\2\2,-\7\t\2\2-.\7\f\2\2./\7\5\2\2/\60\5\b\5\2\60\61\7\6\2\2\61"+
-		"\63\3\2\2\2\62\'\3\2\2\2\62,\3\2\2\2\63\7\3\2\2\2\64\65\7\3\2\2\65\66"+
-		"\7\n\2\2\66=\5\b\5\2\67=\7\3\2\289\7\f\2\29:\7\n\2\2:=\5\b\5\2;=\7\f\2"+
-		"\2<\64\3\2\2\2<\67\3\2\2\2<8\3\2\2\2<;\3\2\2\2=\t\3\2\2\2\6\f%\62<";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\fK\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\5\2\25\n\2"+
+		"\3\3\3\3\3\3\3\3\5\3\33\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3"+
+		"\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b"+
+		"\3\b\3\b\3\b\3\b\3\b\3\b\5\b?\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t"+
+		"I\n\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\2J\2\24\3\2\2\2\4\32\3\2\2\2\6\34"+
+		"\3\2\2\2\b\"\3\2\2\2\n\'\3\2\2\2\f-\3\2\2\2\16>\3\2\2\2\20H\3\2\2\2\22"+
+		"\25\5\4\3\2\23\25\5\16\b\2\24\22\3\2\2\2\24\23\3\2\2\2\25\3\3\2\2\2\26"+
+		"\33\5\6\4\2\27\33\5\b\5\2\30\33\5\n\6\2\31\33\5\f\7\2\32\26\3\2\2\2\32"+
+		"\27\3\2\2\2\32\30\3\2\2\2\32\31\3\2\2\2\33\5\3\2\2\2\34\35\7\5\2\2\35"+
+		"\36\5\2\2\2\36\37\7\13\2\2\37 \5\2\2\2 !\7\6\2\2!\7\3\2\2\2\"#\7\5\2\2"+
+		"#$\7\t\2\2$%\5\2\2\2%&\7\6\2\2&\t\3\2\2\2\'(\7\5\2\2()\5\2\2\2)*\7\7\2"+
+		"\2*+\5\2\2\2+,\7\6\2\2,\13\3\2\2\2-.\7\5\2\2./\5\2\2\2/\60\7\b\2\2\60"+
+		"\61\5\2\2\2\61\62\7\6\2\2\62\r\3\2\2\2\63\64\7\f\2\2\64\65\7\5\2\2\65"+
+		"\66\5\20\t\2\66\67\7\6\2\2\67?\3\2\2\289\7\t\2\29:\7\f\2\2:;\7\5\2\2;"+
+		"<\5\20\t\2<=\7\6\2\2=?\3\2\2\2>\63\3\2\2\2>8\3\2\2\2?\17\3\2\2\2@A\7\3"+
+		"\2\2AB\7\n\2\2BI\5\20\t\2CI\7\3\2\2DE\7\f\2\2EF\7\n\2\2FI\5\20\t\2GI\7"+
+		"\f\2\2H@\3\2\2\2HC\3\2\2\2HD\3\2\2\2HG\3\2\2\2I\21\3\2\2\2\6\24\32>H";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

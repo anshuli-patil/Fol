@@ -1,4 +1,4 @@
-grammar Fol;  
+grammar Fol;     
  
 // Lexer Rules
 
@@ -22,14 +22,19 @@ sentence: complex_sentence
 	|	literal
 	;
 
-complex_sentence: OPENING_BRACKET sentence IMPLIES sentence CLOSING_BRACKET	
-	
-	| 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET                                
-	
-	|	OPENING_BRACKET sentence AND sentence    CLOSING_BRACKET                       
-	
-	|	OPENING_BRACKET sentence OR sentence    CLOSING_BRACKET     
+complex_sentence: implication_sentence
+	|	not_sentence
+	|	and_sentence
+	|	or_sentence
 	;
+
+implication_sentence: OPENING_BRACKET sentence IMPLIES sentence CLOSING_BRACKET	;
+	
+not_sentence: 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET;                    
+	
+and_sentence:	OPENING_BRACKET sentence AND sentence    CLOSING_BRACKET;        
+	
+or_sentence:	OPENING_BRACKET sentence OR sentence    CLOSING_BRACKET;
 
 literal: CONSTANT OPENING_BRACKET list_predicates CLOSING_BRACKET  
 
