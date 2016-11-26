@@ -286,10 +286,22 @@ public class FolParser extends Parser {
 	public static class NotSentenceContext extends ParserRuleContext {
 		public TerminalNode OPENING_BRACKET() { return getToken(FolParser.OPENING_BRACKET, 0); }
 		public TerminalNode NOT() { return getToken(FolParser.NOT, 0); }
-		public SentenceContext sentence() {
-			return getRuleContext(SentenceContext.class,0);
+		public ImplicationSentenceContext implicationSentence() {
+			return getRuleContext(ImplicationSentenceContext.class,0);
 		}
 		public TerminalNode CLOSING_BRACKET() { return getToken(FolParser.CLOSING_BRACKET, 0); }
+		public NotSentenceContext notSentence() {
+			return getRuleContext(NotSentenceContext.class,0);
+		}
+		public AndSentenceContext andSentence() {
+			return getRuleContext(AndSentenceContext.class,0);
+		}
+		public OrSentenceContext orSentence() {
+			return getRuleContext(OrSentenceContext.class,0);
+		}
+		public LiteralContext literal() {
+			return getRuleContext(LiteralContext.class,0);
+		}
 		public NotSentenceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -313,16 +325,74 @@ public class FolParser extends Parser {
 		NotSentenceContext _localctx = new NotSentenceContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_notSentence);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(32);
-			match(OPENING_BRACKET);
-			setState(33);
-			match(NOT);
-			setState(34);
-			sentence();
-			setState(35);
-			match(CLOSING_BRACKET);
+			setState(57);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(32);
+				match(OPENING_BRACKET);
+				setState(33);
+				match(NOT);
+				setState(34);
+				implicationSentence();
+				setState(35);
+				match(CLOSING_BRACKET);
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(37);
+				match(OPENING_BRACKET);
+				setState(38);
+				match(NOT);
+				setState(39);
+				notSentence();
+				setState(40);
+				match(CLOSING_BRACKET);
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(42);
+				match(OPENING_BRACKET);
+				setState(43);
+				match(NOT);
+				setState(44);
+				andSentence();
+				setState(45);
+				match(CLOSING_BRACKET);
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(47);
+				match(OPENING_BRACKET);
+				setState(48);
+				match(NOT);
+				setState(49);
+				orSentence();
+				setState(50);
+				match(CLOSING_BRACKET);
+				}
+				break;
+			case 5:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(52);
+				match(OPENING_BRACKET);
+				setState(53);
+				match(NOT);
+				setState(54);
+				literal();
+				setState(55);
+				match(CLOSING_BRACKET);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -371,15 +441,15 @@ public class FolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(37);
+			setState(59);
 			match(OPENING_BRACKET);
-			setState(38);
+			setState(60);
 			sentence();
-			setState(39);
+			setState(61);
 			match(AND);
-			setState(40);
+			setState(62);
 			sentence();
-			setState(41);
+			setState(63);
 			match(CLOSING_BRACKET);
 			}
 		}
@@ -429,15 +499,15 @@ public class FolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
+			setState(65);
 			match(OPENING_BRACKET);
-			setState(44);
+			setState(66);
 			sentence();
-			setState(45);
+			setState(67);
 			match(OR);
-			setState(46);
+			setState(68);
 			sentence();
-			setState(47);
+			setState(69);
 			match(CLOSING_BRACKET);
 			}
 		}
@@ -483,33 +553,33 @@ public class FolParser extends Parser {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_literal);
 		try {
-			setState(60);
+			setState(82);
 			switch (_input.LA(1)) {
 			case CONSTANT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(49);
+				setState(71);
 				match(CONSTANT);
-				setState(50);
+				setState(72);
 				match(OPENING_BRACKET);
-				setState(51);
+				setState(73);
 				listPredicates();
-				setState(52);
+				setState(74);
 				match(CLOSING_BRACKET);
 				}
 				break;
 			case NOT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(54);
+				setState(76);
 				match(NOT);
-				setState(55);
+				setState(77);
 				match(CONSTANT);
-				setState(56);
+				setState(78);
 				match(OPENING_BRACKET);
-				setState(57);
+				setState(79);
 				listPredicates();
-				setState(58);
+				setState(80);
 				match(CLOSING_BRACKET);
 				}
 				break;
@@ -558,42 +628,42 @@ public class FolParser extends Parser {
 		ListPredicatesContext _localctx = new ListPredicatesContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_listPredicates);
 		try {
-			setState(70);
+			setState(92);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(62);
+				setState(84);
 				match(VARIABLE);
-				setState(63);
+				setState(85);
 				match(COMMA);
-				setState(64);
+				setState(86);
 				listPredicates();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(65);
+				setState(87);
 				match(VARIABLE);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(66);
+				setState(88);
 				match(CONSTANT);
-				setState(67);
+				setState(89);
 				match(COMMA);
-				setState(68);
+				setState(90);
 				listPredicates();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(69);
+				setState(91);
 				match(CONSTANT);
 				}
 				break;
@@ -611,24 +681,30 @@ public class FolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\fK\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\fa\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\5\2\25\n\2"+
 		"\3\3\3\3\3\3\3\3\5\3\33\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3"+
-		"\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b"+
-		"\3\b\3\b\3\b\3\b\3\b\3\b\5\b?\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t"+
-		"I\n\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\2J\2\24\3\2\2\2\4\32\3\2\2\2\6\34"+
-		"\3\2\2\2\b\"\3\2\2\2\n\'\3\2\2\2\f-\3\2\2\2\16>\3\2\2\2\20H\3\2\2\2\22"+
-		"\25\5\4\3\2\23\25\5\16\b\2\24\22\3\2\2\2\24\23\3\2\2\2\25\3\3\2\2\2\26"+
-		"\33\5\6\4\2\27\33\5\b\5\2\30\33\5\n\6\2\31\33\5\f\7\2\32\26\3\2\2\2\32"+
-		"\27\3\2\2\2\32\30\3\2\2\2\32\31\3\2\2\2\33\5\3\2\2\2\34\35\7\5\2\2\35"+
-		"\36\5\2\2\2\36\37\7\13\2\2\37 \5\2\2\2 !\7\6\2\2!\7\3\2\2\2\"#\7\5\2\2"+
-		"#$\7\t\2\2$%\5\2\2\2%&\7\6\2\2&\t\3\2\2\2\'(\7\5\2\2()\5\2\2\2)*\7\7\2"+
-		"\2*+\5\2\2\2+,\7\6\2\2,\13\3\2\2\2-.\7\5\2\2./\5\2\2\2/\60\7\b\2\2\60"+
-		"\61\5\2\2\2\61\62\7\6\2\2\62\r\3\2\2\2\63\64\7\f\2\2\64\65\7\5\2\2\65"+
-		"\66\5\20\t\2\66\67\7\6\2\2\67?\3\2\2\289\7\t\2\29:\7\f\2\2:;\7\5\2\2;"+
-		"<\5\20\t\2<=\7\6\2\2=?\3\2\2\2>\63\3\2\2\2>8\3\2\2\2?\17\3\2\2\2@A\7\3"+
-		"\2\2AB\7\n\2\2BI\5\20\t\2CI\7\3\2\2DE\7\f\2\2EF\7\n\2\2FI\5\20\t\2GI\7"+
-		"\f\2\2H@\3\2\2\2HC\3\2\2\2HD\3\2\2\2HG\3\2\2\2I\21\3\2\2\2\6\24\32>H";
+		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5"+
+		"\3\5\3\5\3\5\5\5<\n\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7"+
+		"\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bU\n\b\3\t\3\t\3\t\3\t"+
+		"\3\t\3\t\3\t\3\t\5\t_\n\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\2d\2\24\3\2\2"+
+		"\2\4\32\3\2\2\2\6\34\3\2\2\2\b;\3\2\2\2\n=\3\2\2\2\fC\3\2\2\2\16T\3\2"+
+		"\2\2\20^\3\2\2\2\22\25\5\4\3\2\23\25\5\16\b\2\24\22\3\2\2\2\24\23\3\2"+
+		"\2\2\25\3\3\2\2\2\26\33\5\6\4\2\27\33\5\b\5\2\30\33\5\n\6\2\31\33\5\f"+
+		"\7\2\32\26\3\2\2\2\32\27\3\2\2\2\32\30\3\2\2\2\32\31\3\2\2\2\33\5\3\2"+
+		"\2\2\34\35\7\5\2\2\35\36\5\2\2\2\36\37\7\13\2\2\37 \5\2\2\2 !\7\6\2\2"+
+		"!\7\3\2\2\2\"#\7\5\2\2#$\7\t\2\2$%\5\6\4\2%&\7\6\2\2&<\3\2\2\2\'(\7\5"+
+		"\2\2()\7\t\2\2)*\5\b\5\2*+\7\6\2\2+<\3\2\2\2,-\7\5\2\2-.\7\t\2\2./\5\n"+
+		"\6\2/\60\7\6\2\2\60<\3\2\2\2\61\62\7\5\2\2\62\63\7\t\2\2\63\64\5\f\7\2"+
+		"\64\65\7\6\2\2\65<\3\2\2\2\66\67\7\5\2\2\678\7\t\2\289\5\16\b\29:\7\6"+
+		"\2\2:<\3\2\2\2;\"\3\2\2\2;\'\3\2\2\2;,\3\2\2\2;\61\3\2\2\2;\66\3\2\2\2"+
+		"<\t\3\2\2\2=>\7\5\2\2>?\5\2\2\2?@\7\7\2\2@A\5\2\2\2AB\7\6\2\2B\13\3\2"+
+		"\2\2CD\7\5\2\2DE\5\2\2\2EF\7\b\2\2FG\5\2\2\2GH\7\6\2\2H\r\3\2\2\2IJ\7"+
+		"\f\2\2JK\7\5\2\2KL\5\20\t\2LM\7\6\2\2MU\3\2\2\2NO\7\t\2\2OP\7\f\2\2PQ"+
+		"\7\5\2\2QR\5\20\t\2RS\7\6\2\2SU\3\2\2\2TI\3\2\2\2TN\3\2\2\2U\17\3\2\2"+
+		"\2VW\7\3\2\2WX\7\n\2\2X_\5\20\t\2Y_\7\3\2\2Z[\7\f\2\2[\\\7\n\2\2\\_\5"+
+		"\20\t\2]_\7\f\2\2^V\3\2\2\2^Y\3\2\2\2^Z\3\2\2\2^]\3\2\2\2_\21\3\2\2\2"+
+		"\7\24\32;T^";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

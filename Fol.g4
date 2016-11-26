@@ -30,7 +30,13 @@ complexSentence: implicationSentence
 
 implicationSentence: OPENING_BRACKET sentence IMPLIES sentence CLOSING_BRACKET;
 	
-notSentence: 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET;                    
+//notSentence: 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET	;
+notSentence: 	OPENING_BRACKET NOT implicationSentence  CLOSING_BRACKET
+	| 	OPENING_BRACKET NOT notSentence  CLOSING_BRACKET
+	| 	OPENING_BRACKET NOT andSentence  CLOSING_BRACKET
+	| 	OPENING_BRACKET NOT orSentence  CLOSING_BRACKET   
+	|	OPENING_BRACKET NOT literal  CLOSING_BRACKET  
+	;                 
 	
 andSentence:	OPENING_BRACKET sentence AND sentence    CLOSING_BRACKET;        
 	
