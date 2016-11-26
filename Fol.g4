@@ -1,4 +1,4 @@
-grammar Fol;     
+grammar Fol;    
  
 // Lexer Rules
 
@@ -18,34 +18,34 @@ CONSTANT        : [A-Z][a-z]* ;
 
 // Parser rules
 
-sentence: complex_sentence
+sentence: complexSentence
 	|	literal
 	;
 
-complex_sentence: implication_sentence
-	|	not_sentence
-	|	and_sentence
-	|	or_sentence
+complexSentence: implicationSentence
+	|	notSentence
+	|	andSentence
+	|	orSentence
 	;
 
-implication_sentence: OPENING_BRACKET sentence IMPLIES sentence CLOSING_BRACKET	;
+implicationSentence: OPENING_BRACKET sentence IMPLIES sentence CLOSING_BRACKET;
 	
-not_sentence: 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET;                    
+notSentence: 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET;                    
 	
-and_sentence:	OPENING_BRACKET sentence AND sentence    CLOSING_BRACKET;        
+andSentence:	OPENING_BRACKET sentence AND sentence    CLOSING_BRACKET;        
 	
-or_sentence:	OPENING_BRACKET sentence OR sentence    CLOSING_BRACKET;
+orSentence:	OPENING_BRACKET sentence OR sentence    CLOSING_BRACKET;
 
-literal: CONSTANT OPENING_BRACKET list_predicates CLOSING_BRACKET  
+literal: CONSTANT OPENING_BRACKET listPredicates CLOSING_BRACKET  
 
-	|	NOT CONSTANT OPENING_BRACKET list_predicates CLOSING_BRACKET         
+	|	NOT CONSTANT OPENING_BRACKET listPredicates CLOSING_BRACKET         
 	;
 
-list_predicates: VARIABLE COMMA list_predicates           
+listPredicates: VARIABLE COMMA listPredicates           
 	
 	|	VARIABLE                                        
 	  
-	|	CONSTANT COMMA list_predicates              
+	|	CONSTANT COMMA listPredicates              
 	
 	|	CONSTANT                                  
 	; 

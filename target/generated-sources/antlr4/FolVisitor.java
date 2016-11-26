@@ -16,35 +16,35 @@ public interface FolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSentence(FolParser.SentenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FolParser#complex_sentence}.
+	 * Visit a parse tree produced by {@link FolParser#complexSentence}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitComplex_sentence(FolParser.Complex_sentenceContext ctx);
+	T visitComplexSentence(FolParser.ComplexSentenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FolParser#implication_sentence}.
+	 * Visit a parse tree produced by {@link FolParser#implicationSentence}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitImplication_sentence(FolParser.Implication_sentenceContext ctx);
+	T visitImplicationSentence(FolParser.ImplicationSentenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FolParser#not_sentence}.
+	 * Visit a parse tree produced by {@link FolParser#notSentence}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNot_sentence(FolParser.Not_sentenceContext ctx);
+	T visitNotSentence(FolParser.NotSentenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FolParser#and_sentence}.
+	 * Visit a parse tree produced by {@link FolParser#andSentence}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAnd_sentence(FolParser.And_sentenceContext ctx);
+	T visitAndSentence(FolParser.AndSentenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FolParser#or_sentence}.
+	 * Visit a parse tree produced by {@link FolParser#orSentence}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOr_sentence(FolParser.Or_sentenceContext ctx);
+	T visitOrSentence(FolParser.OrSentenceContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link FolParser#literal}.
 	 * @param ctx the parse tree
@@ -52,9 +52,9 @@ public interface FolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLiteral(FolParser.LiteralContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FolParser#list_predicates}.
+	 * Visit a parse tree produced by {@link FolParser#listPredicates}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitList_predicates(FolParser.List_predicatesContext ctx);
+	T visitListPredicates(FolParser.ListPredicatesContext ctx);
 }

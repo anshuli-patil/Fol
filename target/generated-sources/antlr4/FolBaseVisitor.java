@@ -23,35 +23,35 @@ public class FolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Fo
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitComplex_sentence(FolParser.Complex_sentenceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitComplexSentence(FolParser.ComplexSentenceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitImplication_sentence(FolParser.Implication_sentenceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitImplicationSentence(FolParser.ImplicationSentenceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNot_sentence(FolParser.Not_sentenceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNotSentence(FolParser.NotSentenceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAnd_sentence(FolParser.And_sentenceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAndSentence(FolParser.AndSentenceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOr_sentence(FolParser.Or_sentenceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOrSentence(FolParser.OrSentenceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -65,5 +65,5 @@ public class FolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Fo
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitList_predicates(FolParser.List_predicatesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitListPredicates(FolParser.ListPredicatesContext ctx) { return visitChildren(ctx); }
 }
