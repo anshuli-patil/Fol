@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class FolSentence {
 	Map<String, FolLiteral> literals;
 
-	FolSentence(String sentence) {
+	public FolSentence(String sentence) {
 		literals = new HashMap<String, FolLiteral>();
 
 		String[] rawLiterals = sentence.split(Pattern.quote(Character.toString(Constants.OR)));
@@ -52,7 +52,6 @@ public class FolSentence {
 		newLiterals.putAll(substituteAll(q, literalType, unifySubstitution));
 
 		FolSentence combinedSentence = new FolSentence(newLiterals);
-		System.out.println(combinedSentence);
 		return combinedSentence;
 	}
 
