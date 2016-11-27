@@ -83,7 +83,10 @@ notSentence
 
 andOrSentence
 :
-	OPENING_BRACKET sentence operator sentence CLOSING_BRACKET
+	OPENING_BRACKET literal operator literal CLOSING_BRACKET
+	|	OPENING_BRACKET andOrSentence operator andOrSentence CLOSING_BRACKET
+	|	OPENING_BRACKET andOrSentence operator literal CLOSING_BRACKET
+	|	OPENING_BRACKET literal operator andOrSentence CLOSING_BRACKET
 ;
 
 operator
