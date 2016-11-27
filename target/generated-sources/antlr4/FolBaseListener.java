@@ -63,25 +63,25 @@ public class FolBaseListener implements FolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAndSentence(FolParser.AndSentenceContext ctx) { }
+	@Override public void enterAndOrSentence(FolParser.AndOrSentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAndSentence(FolParser.AndSentenceContext ctx) { }
+	@Override public void exitAndOrSentence(FolParser.AndOrSentenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOrSentence(FolParser.OrSentenceContext ctx) { }
+	@Override public void enterOperator(FolParser.OperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOrSentence(FolParser.OrSentenceContext ctx) { }
+	@Override public void exitOperator(FolParser.OperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

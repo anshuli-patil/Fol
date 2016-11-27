@@ -64,8 +64,7 @@ complexSentence
 :
 	implicationSentence
 	| notSentence
-	| andSentence
-	| orSentence
+	| andOrSentence
 ;
 
 implicationSentence
@@ -78,19 +77,19 @@ implicationSentence
 notSentence
 :
 	OPENING_BRACKET NOT notSentence CLOSING_BRACKET
-	| OPENING_BRACKET NOT andSentence CLOSING_BRACKET
-	| OPENING_BRACKET NOT orSentence CLOSING_BRACKET
+	| OPENING_BRACKET NOT andOrSentence CLOSING_BRACKET
 	| OPENING_BRACKET NOT literal CLOSING_BRACKET
 ;
 
-andSentence
+andOrSentence
 :
-	OPENING_BRACKET sentence AND sentence CLOSING_BRACKET
+	OPENING_BRACKET sentence operator sentence CLOSING_BRACKET
 ;
 
-orSentence
+operator
 :
-	OPENING_BRACKET sentence OR sentence CLOSING_BRACKET
+	AND
+	| OR
 ;
 
 literal

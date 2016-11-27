@@ -47,25 +47,25 @@ public interface FolListener extends ParseTreeListener {
 	 */
 	void exitNotSentence(FolParser.NotSentenceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link FolParser#andSentence}.
+	 * Enter a parse tree produced by {@link FolParser#andOrSentence}.
 	 * @param ctx the parse tree
 	 */
-	void enterAndSentence(FolParser.AndSentenceContext ctx);
+	void enterAndOrSentence(FolParser.AndOrSentenceContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link FolParser#andSentence}.
+	 * Exit a parse tree produced by {@link FolParser#andOrSentence}.
 	 * @param ctx the parse tree
 	 */
-	void exitAndSentence(FolParser.AndSentenceContext ctx);
+	void exitAndOrSentence(FolParser.AndOrSentenceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link FolParser#orSentence}.
+	 * Enter a parse tree produced by {@link FolParser#operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterOrSentence(FolParser.OrSentenceContext ctx);
+	void enterOperator(FolParser.OperatorContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link FolParser#orSentence}.
+	 * Exit a parse tree produced by {@link FolParser#operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitOrSentence(FolParser.OrSentenceContext ctx);
+	void exitOperator(FolParser.OperatorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link FolParser#literal}.
 	 * @param ctx the parse tree

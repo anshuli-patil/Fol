@@ -41,18 +41,13 @@ public class FolBaseListenerImpl extends FolBaseListener {
 	@Override
 	public void exitNotSentence(FolParser.NotSentenceContext ctx) {
 		String replacement = null;
-		if (ctx.orSentence() != null) {
-			String leftSentence = ctx.orSentence().sentence(0).getText();
-			String rightSentence = ctx.orSentence().sentence(1).getText();
+		if (ctx.andOrSentence() != null) {
+			String leftSentence = ctx.andOrSentence().sentence(0).getText();
+			String rightSentence = ctx.andOrSentence().sentence(1).getText();
+			
+			char reverseOperator = getReverseOperator(ctx.andOrSentence().operator().getText());
 			replacement = String.format("%c%c%c%s%c%c%c%c%s%c%c", Constants.OPENING_BRACE, Constants.OPENING_BRACE,
-					Constants.NOT, leftSentence, Constants.CLOSING_BRACE, Constants.AND, Constants.OPENING_BRACE,
-					Constants.NOT, rightSentence, Constants.CLOSING_BRACE, Constants.CLOSING_BRACE);
-
-		} else if (ctx.andSentence() != null) {
-			String leftSentence = ctx.andSentence().sentence(0).getText();
-			String rightSentence = ctx.andSentence().sentence(1).getText();
-			replacement = String.format("%c%c%c%s%c%c%c%c%s%c%c", Constants.OPENING_BRACE, Constants.OPENING_BRACE,
-					Constants.NOT, leftSentence, Constants.CLOSING_BRACE, Constants.OR, Constants.OPENING_BRACE,
+					Constants.NOT, leftSentence, Constants.CLOSING_BRACE, reverseOperator , Constants.OPENING_BRACE,
 					Constants.NOT, rightSentence, Constants.CLOSING_BRACE, Constants.CLOSING_BRACE);
 
 		} else if (ctx.notSentence() != null) {
@@ -74,11 +69,20 @@ public class FolBaseListenerImpl extends FolBaseListener {
 	}
 	
 	
+	private char getReverseOperator(String text) {
+		if(text.equals(String.format("%c", Constants.AND))) {
+			return Constants.OR;
+		} else {
+			return Constants.AND;
+		}
+	}
+
+
 	/**
 	 * Handles distributivity property implementation for conjunction of disjunction
 	 */
 	@Override
-	public void exitAndSentence(FolParser.AndSentenceContext ctx) {
+	public void exitAndOrSentence(FolParser.AndOrSentenceContext ctx) {
 		//TODO
 		
 		
