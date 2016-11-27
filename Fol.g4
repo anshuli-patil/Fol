@@ -1,56 +1,108 @@
-grammar Fol;    
- 
+grammar Fol;
+
 // Lexer Rules
 
-VARIABLE        : [a-z]+ ;
-WHITESPACE      : [ \t\r\n\u000C]+ -> skip ;
+VARIABLE
+:
+	[a-z]+
+;
 
-OPENING_BRACKET : '(' ;
-CLOSING_BRACKET : ')' ;
-AND             : '&' ;
-OR              : '|' ;
-NOT             : '~' ;
-COMMA           : ',' ;
-IMPLIES         : '=>';
+WHITESPACE
+:
+	[ \t\r\n\u000C]+ -> skip
+;
 
-CONSTANT        : [A-Z][a-z]* ;       
+OPENING_BRACKET
+:
+	'('
+;
 
+CLOSING_BRACKET
+:
+	')'
+;
+
+AND
+:
+	'&'
+;
+
+OR
+:
+	'|'
+;
+
+NOT
+:
+	'~'
+;
+
+COMMA
+:
+	','
+;
+
+IMPLIES
+:
+	'=>'
+;
+
+CONSTANT
+:
+	[A-Z] [a-z]*
+;
 
 // Parser rules
 
-sentence: complexSentence
-	|	literal
-	;
+sentence
+:
+	complexSentence
+	| literal
+;
 
-complexSentence: implicationSentence
-	|	notSentence
-	|	andSentence
-	|	orSentence
-	;
+complexSentence
+:
+	implicationSentence
+	| notSentence
+	| andSentence
+	| orSentence
+;
 
-implicationSentence: OPENING_BRACKET sentence IMPLIES sentence CLOSING_BRACKET;
-	
-//notSentence: 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET	;
-notSentence: 	OPENING_BRACKET NOT notSentence  CLOSING_BRACKET
-	| 	OPENING_BRACKET NOT andSentence  CLOSING_BRACKET
-	| 	OPENING_BRACKET NOT orSentence  CLOSING_BRACKET   
-	|	OPENING_BRACKET NOT literal  CLOSING_BRACKET  
-	;                 
-	
-andSentence:	OPENING_BRACKET sentence AND sentence    CLOSING_BRACKET;        
-	
-orSentence:	OPENING_BRACKET sentence OR sentence    CLOSING_BRACKET;
+implicationSentence
+:
+	OPENING_BRACKET sentence IMPLIES sentence CLOSING_BRACKET
+;
 
-literal: CONSTANT OPENING_BRACKET listPredicates CLOSING_BRACKET  
+//notSentence: 	OPENING_BRACKET NOT sentence  CLOSING_BRACKET;
 
-	|	NOT CONSTANT OPENING_BRACKET listPredicates CLOSING_BRACKET         
-	;
+notSentence
+:
+	OPENING_BRACKET NOT notSentence CLOSING_BRACKET
+	| OPENING_BRACKET NOT andSentence CLOSING_BRACKET
+	| OPENING_BRACKET NOT orSentence CLOSING_BRACKET
+	| OPENING_BRACKET NOT literal CLOSING_BRACKET
+;
 
-listPredicates: VARIABLE COMMA listPredicates           
-	
-	|	VARIABLE                                        
-	  
-	|	CONSTANT COMMA listPredicates              
-	
-	|	CONSTANT                                  
-	; 
+andSentence
+:
+	OPENING_BRACKET sentence AND sentence CLOSING_BRACKET
+;
+
+orSentence
+:
+	OPENING_BRACKET sentence OR sentence CLOSING_BRACKET
+;
+
+literal
+:
+	CONSTANT OPENING_BRACKET listPredicates CLOSING_BRACKET
+	| NOT CONSTANT OPENING_BRACKET listPredicates CLOSING_BRACKET
+;
+
+listPredicates
+:
+	VARIABLE COMMA listPredicates
+	| VARIABLE
+	| CONSTANT COMMA listPredicates
+	| CONSTANT
+; 

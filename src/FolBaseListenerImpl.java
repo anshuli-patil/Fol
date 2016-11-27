@@ -11,6 +11,10 @@ public class FolBaseListenerImpl extends FolBaseListener {
 		rewriter = new TokenStreamRewriter(tokens);
 	}
 
+	
+	/**
+	 * Handles implication elimination
+	 */
 	@Override
 	public void enterImplicationSentence(FolParser.ImplicationSentenceContext ctx) {
 		// System.out.println("In method exitImplication_sentence");
@@ -31,6 +35,9 @@ public class FolBaseListenerImpl extends FolBaseListener {
 		// rewriter.replace(ctx.start, ctx.stop, replacement);
 	}
 
+	/**
+	 * Handles reducing scope of negation to minimal
+	 */
 	@Override
 	public void exitNotSentence(FolParser.NotSentenceContext ctx) {
 		String replacement = null;
@@ -64,6 +71,17 @@ public class FolBaseListenerImpl extends FolBaseListener {
 
 		rewriter.insertAfter(ctx.stop, replacement);
 		rewriter.delete(ctx.start, ctx.stop);
+	}
+	
+	
+	/**
+	 * Handles distributivity property implementation for conjunction of disjunction
+	 */
+	@Override
+	public void exitAndSentence(FolParser.AndSentenceContext ctx) {
+		//TODO
+		
+		
 	}
 
 }
