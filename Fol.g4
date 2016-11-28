@@ -79,14 +79,16 @@ notSentence
 	OPENING_BRACKET NOT notSentence CLOSING_BRACKET
 	| OPENING_BRACKET NOT andOrSentence CLOSING_BRACKET
 	| OPENING_BRACKET NOT literal CLOSING_BRACKET
+	| OPENING_BRACKET NOT sentence CLOSING_BRACKET
 ;
 
 andOrSentence
 :
 	OPENING_BRACKET literal operator literal CLOSING_BRACKET
-	|	OPENING_BRACKET andOrSentence operator andOrSentence CLOSING_BRACKET
-	|	OPENING_BRACKET andOrSentence operator literal CLOSING_BRACKET
-	|	OPENING_BRACKET literal operator andOrSentence CLOSING_BRACKET
+	| OPENING_BRACKET andOrSentence operator andOrSentence CLOSING_BRACKET
+	| OPENING_BRACKET andOrSentence operator literal CLOSING_BRACKET
+	| OPENING_BRACKET literal operator andOrSentence CLOSING_BRACKET
+	| OPENING_BRACKET sentence operator sentence CLOSING_BRACKET
 ;
 
 operator

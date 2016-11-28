@@ -68,9 +68,10 @@ public class FolBaseListenerDistributivity extends FolBaseListenerImpl {
 
 		// swap out the two parts, so that and operator for second part can be
 		// used, if possible
-		replace(ctx, String.format("%c%s%s%s%c", Constants.OPENING_BRACE, ctx.andOrSentence(1).getText(),
-				ctx.operator().getText(), ctx.andOrSentence(0).getText(), Constants.CLOSING_BRACE));
-
+		if (ctx.andOrSentence(1).literal().size() < 2) {
+			replace(ctx, String.format("%c%s%s%s%c", Constants.OPENING_BRACE, ctx.andOrSentence(1).getText(),
+					ctx.operator().getText(), ctx.andOrSentence(0).getText(), Constants.CLOSING_BRACE));
+		}
 		return null;
 	}
 

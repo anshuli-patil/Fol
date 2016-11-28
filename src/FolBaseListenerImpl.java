@@ -12,12 +12,12 @@ public class FolBaseListenerImpl extends FolBaseListener {
 	public FolBaseListenerImpl(TokenStream tokens) {
 		rewriter = new TokenStreamRewriter(tokens);
 	}
-	
+
 	void replace(ParserRuleContext ctx, String replacement) {
 		rewriter.insertAfter(ctx.stop, replacement);
 		rewriter.delete(ctx.start, ctx.stop);
 	}
-	
+
 	char getReverseOperator(String text) {
 		if (text.equals(String.format("%c", Constants.AND))) {
 			return Constants.OR;
@@ -25,7 +25,7 @@ public class FolBaseListenerImpl extends FolBaseListener {
 			return Constants.AND;
 		}
 	}
-	
+
 	boolean isOrOperator(FolParser.AndOrSentenceContext ctx) {
 		if (ctx.operator().getText().equals(String.format("%c", Constants.OR))) {
 			return true;
